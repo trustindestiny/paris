@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+
+<html lang="tr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>Gokhan Karatas</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Gokhan Karatas">
+<meta name="theme-color" content="#ffffff">
+<link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png?v=3">
+<link rel="apple-touch-icon-precomposed" sizes="180x180" href="./apple-touch-icon.png?v=3">
+<link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png?v=3">
+<link rel="shortcut icon" href="./apple-touch-icon.png?v=3">
+
+<style>
+:root{--bg:#f6f3ef;--card:#fff;--text:#1d1d1f;--muted:#6b7280;--border:#e5e7eb;--accent:#111827;--soft:#f3f4f6;--pmp:#fef3c7;--free:#dcfce7;--cafe:#fce7f3}
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.45}
+.wrap{max-width:980px;margin:0 auto;padding:18px 14px 44px}.hero,details.day{background:var(--card);border:1px solid var(--border);border-radius:22px;box-shadow:0 8px 24px rgba(0,0,0,.04)}.hero{padding:18px;margin-bottom:16px}
+h1{margin:0 0 8px;font-size:1.86rem;line-height:1.1;letter-spacing:.02em}.sub,.hotel,.legend,.tips,.savehint{color:var(--muted);font-size:.95rem}.hotel,.savehint{margin-top:10px}.legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.pill,.route-link,.tool-btn,.map-link{padding:5px 9px;background:#fff;font-size:.78rem;white-space:nowrap}
+.pill.pmp,.badge.pmp{background:var(--pmp)}.pill.free,.badge.free{background:var(--free)}.pill.cafe,.badge.cafe{background:var(--cafe)}.tool-btn{background:#fff;cursor:pointer}.tool-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.tips{margin-top:12px;padding-top:12px;border-top:1px dashed var(--border)}
+details.day{margin:14px 0;overflow:hidden}details.day[open] summary{border-bottom:1px solid var(--border)}summary{list-style:none;cursor:pointer;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px}summary::-webkit-details-marker{display:none}
+.day-title{display:flex;flex-direction:column;gap:5px}.day-title strong{font-size:1.08rem}.day-title span{color:var(--muted);font-size:.92rem}.count{font-size:.84rem;color:var(--muted);background:var(--soft);border:1px solid var(--border);border-radius:999px;padding:6px 10px}
+.items{padding:10px 12px 16px}.item{display:grid;grid-template-columns:32px minmax(0,1fr);gap:10px;align-items:center;padding:12px 8px;border-bottom:1px solid #f0f1f3}.item.cafe{background:var(--cafe);border:1px solid #f5c2e0;border-radius:16px;margin:6px 0;padding:12px 10px}.item:last-of-type{border-bottom:none}input[type="checkbox"]{width:20px;height:20px;accent-color:#111827;display:block;margin:auto}.content{min-width:0;display:flex;flex-direction:column}.place-row{display:flex;align-items:center;gap:8px;flex-wrap:nowrap} .num-badge{display:inline-flex;align-items:center;justify-content:center;min-width:28px;height:28px;border-radius:999px;background:#111827;color:#fff;font-size:.8rem;font-weight:700} .place-link{color:var(--accent);text-decoration:none;font-weight:650;white-space:nowrap}.place-link:hover{text-decoration:underline}.map-link{padding:5px 9px;background:#fff;font-size:.78rem;white-space:nowrap}.badges{display:flex;gap:6px;margin-top:6px;flex-wrap:nowrap}.badge{display:inline-flex;align-items:center;gap:5px;padding:4px 8px;border-radius:999px;border:1px solid var(--border);background:var(--soft);color:#374151;font-size:.77rem}.note{margin-top:6px;font-size:.8rem;line-height:1.4;white-space:normal;word-break:normal}.checked .place-link{color:var(--accent);text-decoration:none;font-weight:650;white-space:nowrap}
+.route-box{margin:10px 8px 4px;padding:12px;border:1px dashed var(--border);background:#fafafa;border-radius:16px}.route-title{font-weight:650;margin-bottom:8px}.route-links{display:flex;gap:8px;flex-wrap:wrap}.route-link{background:#fff;font-size:.82rem}.route-note{margin-top:8px;color:var(--muted);font-size:.8rem}.footer{margin-top:18px;color:var(--muted);font-size:.86rem;text-align:center}
+@media (max-width:640px){h1{font-size:1.45rem}.wrap{padding:12px 10px 28px}summary{padding:14px}.items{padding:8px 8px 12px}}
+
+.extra-groups{display:flex;flex-direction:column;gap:14px;padding-top:4px}
+.extra-group{border:1px solid var(--border);border-radius:16px;padding:10px 10px 6px;background:#fafafa}
+.extra-group-title{font-size:.9rem;font-weight:800;margin:0 0 8px;letter-spacing:.01em}
+.item.minor-extra{display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;align-items:center;padding:8px 4px;border-bottom:1px solid #f0f1f3}
+.item.minor-extra:last-child{border-bottom:none}
+.item.minor-extra .place-link{font-size:.88rem;font-weight:600}
+.item.minor-extra .map-link{padding:4px 8px;font-size:.74rem}
+.item.minor-extra .badges{margin-top:4px}
+.item.minor-extra .badge{font-size:.72rem;padding:3px 7px}
+@media (max-width:640px){
+  .extra-group{padding:9px 8px 5px}
+  .extra-group-title{font-size:.86rem}
+  .item.minor-extra{grid-template-columns:24px minmax(0,1fr);gap:8px}
+  .item.minor-extra .place-link{font-size:.84rem}
+}
+
+</style>
+<!-- icon version v3 -->
+</head>
+<body>
+<div class="wrap">
+<section class="hero">
+<h1>GÖKHAN KARATAŞ 🇫🇷</h1>
+<div class="sub">Paris 25–28 Mart gezi planı</div>
+
+</section>
+<details class="day" open=""><summary><div class="day-title"><strong>25 Mart Çarşamba akşamı — İlk Paris akşamı: Montmartre</strong><span>Otele bıraktıktan sonra kısa ama çok “Paris” hisli akşam yürüyüşü</span></div><div class="count">5 durak</div></summary><div class="items"><div class="item"><input data-id="montmartre" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge">1</span><a class="place-link" href="https://tr.wikipedia.org/wiki/Montmartre" rel="noopener" target="_blank">Montmartre</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Montmartre%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge">mahalle</span></div></div></div><div class="item"><input data-id="sacrecoeur" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge">2</span><a class="place-link" href="https://tr.wikipedia.org/wiki/Sacre-Coeur_Bazilikasi" rel="noopener" target="_blank">Sacré-cœur Bazilikası</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Sacr%C3%A9-c%C5%93ur%20Bazilikas%C4%B1%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge">bazilika</span></div></div></div><div class="item"><input data-id="place-tertre" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge">3</span><a class="place-link" href="https://en.wikipedia.org/wiki/Place_du_Tertre" rel="noopener" target="_blank">Ressamlar Tepesi</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Ressamlar%20Tepesi%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge">meydan</span><span class="badge">sanat</span></div></div></div><div class="item"><input data-id="romantic-life" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge">4</span><a class="place-link" href="https://en.wikipedia.org/wiki/Mus%C3%A9e_de_la_Vie_romantique" rel="noopener" target="_blank">Museum of Romantic Life</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Museum%20of%20Romantic%20Life%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge">müze</span><span class="badge free">🆓 ücretsiz</span></div></div></div><div class="item"><input data-id="henner" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge">5</span><a class="place-link" href="https://en.wikipedia.org/wiki/Mus%C3%A9e_Jean-Jacques_Henner" rel="noopener" target="_blank">Musée Jean-Jacques Henner</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Mus%C3%A9e%20Jean-Jacques%20Henner%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge">müze</span><span class="badge pmp">🏛️ PMP</span></div></div>
+<div class="item" style="background:#fef3c7;border-radius:16px;margin:6px 0;padding:12px 10pxbackground:#ecfdf5;border:1px solid #86efac;border-radius:12px;">
+<input data-id="dinner1" type="checkbox"/>
+<div class="content">
+<div class="place-row">
+<span class="num-badge" style="background:#fff;color:#111827;border-style:dashed">🍽️</span>
+<a class="place-link" href="https://www.google.com/search?q=PINK+MAMMA" target="_blank">PINK MAMMA</a>
+<a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Pink%20Mamma%20Paris" target="_blank">📍 Harita</a>
+</div>
+<div class="badges"><span class="badge" style="background:#fef3c7;border-color:#fde68a">akşam yemeği</span></div>
+</div></div>
+</div></details><details class="day" open=""><summary><div class="day-title"><strong>26 Mart Perşembe — Sabah Montmartre + Opera, pasajlar, Louvre–Champs hattı</strong><span>Yakın ve zincir gibi bağlanan en yoğun şehir merkezi günü</span></div><div class="count">20 durak</div></summary><div class="items"><div class="item"><input data-id="wall-iloveyou" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge">6</span><a class="place-link" href="https://en.wikipedia.org/wiki/Wall_of_Love" rel="noopener" target="_blank">The Wall of “I love you”</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=The%20Wall%20of%20%E2%80%9CI%20love%20you%E2%80%9D%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge">sanat eseri</span><span class="badge">park</span></div></div></div><div class="item"><input data-id="garnier" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge">7</span><a class="place-link" href="https://tr.wikipedia.org/wiki/Palais_Garnier" rel="noopener" target="_blank">Palais Garnier</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Palais%20Garnier%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge">opera binası</span></div></div></div><div class="item"><input data-id="galleries-haussmann" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge">8</span><a class="place-link" href="https://en.wikipedia.org/wiki/Galeries_Lafayette" rel="noopener" target="_blank">Galeries Lafayette Haussmann</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Galeries%20Lafayette%20Haussmann%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge">alışveriş</span><span class="badge">teras</span></div></div></div><div class="item"><input data-id="galleries-gourmet" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge">9</span><a class="place-link" href="https://en.wikipedia.org/wiki/Galeries_Lafayette" rel="noopener" target="_blank">Galeries Lafayette Le Gourmet</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Galeries%20Lafayette%20Le%20Gourmet%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge">gurme market</span><span class="badge">alışveriş</span></div></div></div><div class="item"><input data-id="jouffroy" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge">10</span><a class="place-link" href="https://en.wikipedia.org/wiki/Passage_Jouffroy" rel="noopener" target="_blank">Passage Jouffroy</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Passage%20Jouffroy%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge">geçit / pasaj</span></div></div></div><div class="item"><input data-id="panoramas" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge">11</span><a class="place-link" href="https://en.wikipedia.org/wiki/Passage_des_Panoramas" rel="noopener" target="_blank">Passage des Panoramas</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Passage%20des%20Panoramas%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge">geçit / pasaj</span></div></div></div><div class="item"><input data-id="bnf" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge">12</span><a class="place-link" href="https://en.wikipedia.org/wiki/Biblioth%C3%A8que_nationale_de_France" rel="noopener" target="_blank">Bibliothèque nationale de France (BnF) | Richelieu</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Biblioth%C3%A8que%20nationale%20de%20France%20%28BnF%29%20%7C%20Richelieu%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge">kütüphane</span><span class="badge">tarihi yapı</span></div></div></div><div class="item"><input data-id="vivienne" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge">13</span><a class="place-link" href="https://en.wikipedia.org/wiki/Galerie_Vivienne" rel="noopener" target="_blank">Galerie Vivienne</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Galerie%20Vivienne%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge">geçit / pasaj</span></div></div></div><div class="item" style="background:#dcfce7;border-radius:16px;margin:6px 0;padding:12px 10pxbackground:#ecfdf5;border:1px solid #86efac;border-radius:12px;"><input data-id="westfield-forum-des-halles" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge" style="background:#fff;color:#111827;border-style:dashed">🛍️</span><a class="place-link" href="https://www.google.com/search?q=Westfield+Forum+des+Halles" rel="noopener" target="_blank">WESTFIELD FORUM DES HALLES</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Westfield%20Forum%20des%20Halles%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge" style="background:#dcfce7;border-color:#86efac">alışveriş</span></div></div></div><div class="item"><input data-id="palais-royal" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge">14</span><a class="place-link" href="https://tr.wikipedia.org/wiki/Palais-Royal" rel="noopener" target="_blank">Palais-Royal</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Palais-Royal%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge">saray / avlu</span></div></div></div><div class="item"><input data-id="patrick-fourtin" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge">15</span><a class="place-link" href="https://en.wikipedia.org/wiki/Art_gallery" rel="noopener" target="_blank">Galerie Patrick Fourtin</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Galerie%20Patrick%20Fourtin%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge">galeri</span></div></div></div><div class="item cafe"><input data-id="at-the-pigs-foot" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge" style="background:#fff;color:#111827;border-style:dashed">☕</span><a class="place-link" href="https://www.google.com/search?q=Au+Pied+de+Cochon+Paris" rel="noopener" target="_blank">AT THE PIG'S FOOT</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Au%20Pied%20de%20Cochon%2C%206%20Rue%20Coquilli%C3%A8re%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge cafe">kafe</span></div></div></div><div class="item"><input data-id="louvre" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge">16</span><a class="place-link" href="https://tr.wikipedia.org/wiki/Louvre_M%C3%BCzesi" rel="noopener" target="_blank">Louvre Museum</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Louvre%20Museum%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge">müze</span><span class="badge pmp">🏛️ PMP</span></div></div></div><div class="item"><input data-id="tuileries" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge">17</span><a class="place-link" href="https://tr.wikipedia.org/wiki/Tuileries_Bah%C3%A7esi" rel="noopener" target="_blank">Tuileries Bahçesi</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Tuileries%20Bah%C3%A7esi%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge">bahçe</span></div></div></div><div class="item cafe"><input data-id="angelina-rivoli" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge" style="background:#fff;color:#111827;border-style:dashed">☕</span><a class="place-link" href="https://en.wikipedia.org/wiki/Angelina_(tea_house)" rel="noopener" target="_blank">ANGELINA</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Angelina%2C%20226%20Rue%20de%20Rivoli%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge cafe">kafe</span></div></div></div><div class="item"><input data-id="orangerie" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge">18</span><a class="place-link" href="https://en.wikipedia.org/wiki/Mus%C3%A9e_de_l%27Orangerie" rel="noopener" target="_blank">Orangerie Museum</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Orangerie%20Museum%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge">müze</span><span class="badge pmp">🏛️ PMP</span></div></div></div><div class="item"><input data-id="concorde" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge">19</span><a class="place-link" href="https://tr.wikipedia.org/wiki/Concorde_Meydan%C4%B1" rel="noopener" target="_blank">Concorde Meydanı</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Concorde%20Meydan%C4%B1%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge">meydan</span></div></div></div><div class="item"><input data-id="alexandre" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge">20</span><a class="place-link" href="https://tr.wikipedia.org/wiki/Pont_Alexandre_III" rel="noopener" target="_blank">Alexandre III Köprüsü</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Alexandre%20III%20K%C3%B6pr%C3%BCs%C3%BC%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge">köprü</span></div></div></div><div class="item"><input data-id="petit-palais" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge">21</span><a class="place-link" href="https://tr.wikipedia.org/wiki/Petit_Palais" rel="noopener" target="_blank">Petit Palais</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Petit%20Palais%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge">müze</span><span class="badge free">🆓 ücretsiz</span></div></div></div><div class="item"><input data-id="grand-palais" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge">22</span><a class="place-link" href="https://tr.wikipedia.org/wiki/Grand_Palais" rel="noopener" target="_blank">Grand Palais</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Grand%20Palais%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge">sergi alanı</span><span class="badge">anıtsal yapı</span></div></div></div><div class="item"><input data-id="champselysees" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge">23</span><a class="place-link" href="https://tr.wikipedia.org/wiki/Champs-%C3%89lys%C3%A9es" rel="noopener" target="_blank">Champs-Élysées</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Champs-%C3%89lys%C3%A9es%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge">cadde</span><span class="badge">alışveriş</span></div></div></div><div class="item cafe"><input data-id="laduree" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge" style="background:#fff;color:#111827;border-style:dashed">☕</span><a class="place-link" href="https://en.wikipedia.org/wiki/Ladur%C3%A9e" rel="noopener" target="_blank">LADUREE</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Ladur%C3%A9e%2C%2075%20Avenue%20des%20Champs-%C3%89lys%C3%A9es%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge cafe">kafe</span></div></div></div><div class="item"><input data-id="renault" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge">24</span><a class="place-link" href="https://en.wikipedia.org/wiki/Renault" rel="noopener" target="_blank">LE DÉFILÉ RENAULT - THE CARWALK</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=LE%20D%C3%89FIL%C3%89%20RENAULT%20-%20THE%20CARWALK%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge">deneyim alanı</span><span class="badge">showroom</span></div></div></div><div class="item"><input data-id="arc" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge">25</span><a class="place-link" href="https://tr.wikipedia.org/wiki/Zafer_Tak%C4%B1_(Paris)" rel="noopener" target="_blank">Zafer Takı</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Zafer%20Tak%C4%B1%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge">anıt</span><span class="badge pmp">🏛️ PMP</span></div></div>
+<div class="item" style="background:#fef3c7;border-radius:16px;margin:6px 0;padding:12px 10pxbackground:#ecfdf5;border:1px solid #86efac;border-radius:12px;">
+<input data-id="dinner2" type="checkbox"/>
+<div class="content">
+<div class="place-row">
+<span class="num-badge" style="background:#fff;color:#111827;border-style:dashed">🍽️</span>
+<a class="place-link" href="https://www.google.com/search?q=LE+RELAIS+DE+VENISE+-+L'ENTRECOTE" target="_blank">LE RELAIS DE VENISE - L'ENTRECOTE</a>
+<a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Le%20Relais%20de%20Venise%20Paris" target="_blank">📍 Harita</a>
+</div>
+<div class="badges"><span class="badge" style="background:#fef3c7;border-color:#fde68a">akşam yemeği</span></div>
+</div></div>
+</div></details><details class="day"><summary><div class="day-title"><strong>27 Mart Cuma — Île de la Cité + Latin Quarter + Sol Yaka + Eyfel hattı</strong><span>Tarihi merkez ve Seine kıyısı boyunca güçlü bir yürüyüş günü</span></div><div class="count">16 durak</div></summary><div class="items"><div class="item"><input data-id="notredame" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge">26</span><a class="place-link" href="https://tr.wikipedia.org/wiki/Notre-Dame_de_Paris" rel="noopener" target="_blank">Notre Dame</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Notre%20Dame%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge">katedral</span></div></div></div><div class="item"><input data-id="saintechapelle" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge">27</span><a class="place-link" href="https://tr.wikipedia.org/wiki/Sainte-Chapelle" rel="noopener" target="_blank">Sainte Şapeli</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Sainte%20%C5%9Eapeli%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge">şapel</span><span class="badge pmp">🏛️ PMP</span></div></div></div><div class="item"><input data-id="conciergerie" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge">28</span><a class="place-link" href="https://en.wikipedia.org/wiki/Conciergerie" rel="noopener" target="_blank">Conciergerie</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Conciergerie%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge">saray / müze</span><span class="badge pmp">🏛️ PMP</span></div></div></div><div class="item" style="background:#ede9fe;border-radius:16px;margin:6px 0;padding:12px 10pxbackground:#ecfdf5;border:1px solid #86efac;border-radius:12px;"><input data-id="place-estrapade" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge" style="background:#fff;color:#111827;border-style:dashed">🎬</span><a class="place-link" href="https://en.wikipedia.org/wiki/Place_de_l%27Estrapade" rel="noopener" target="_blank">PLACE DE L'ESTRAPADE</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Place%20de%20l%27Estrapade%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge" style="background:#ede9fe;border-color:#c4b5fd">Emily in Paris</span><span class="badge" style="background:#ede9fe;border-color:#c4b5fd;font-weight:700">🎬 EMILY IN PARIS</span></div></div></div><div class="item"><input data-id="shakespeare" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge">29</span><a class="place-link" href="https://en.wikipedia.org/wiki/Shakespeare_and_Company_(bookstore)" rel="noopener" target="_blank">Shakespeare And Company</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Shakespeare%20And%20Company%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge">kitapçı</span></div></div></div><div class="item cafe"><input data-id="maison-isabelle" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge" style="background:#fff;color:#111827;border-style:dashed">☕</span><a class="place-link" href="https://www.google.com/search?q=La+Maison+d%27Isabelle+Paris" rel="noopener" target="_blank">LA MAISON D'ISABELLE</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=La%20Maison%20d%27Isabelle%2C%2047ter%20Boulevard%20Saint-Germain%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge cafe">kafe</span></div></div></div><div class="item"><input data-id="latin" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge">30</span><a class="place-link" href="https://tr.wikipedia.org/wiki/Latin_Mahallesi_(Paris)" rel="noopener" target="_blank">Paris Latin Mahallesi</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Paris%20Latin%20Mahallesi%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge">mahalle</span></div></div></div><div class="item" style="background:#ede9fe;border-radius:16px;margin:6px 0;padding:12px 10pxbackground:#ecfdf5;border:1px solid #86efac;border-radius:12px;"><input data-id="boulangerie-moderne" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge" style="background:#fff;color:#111827;border-style:dashed">🎬</span><a class="place-link" href="https://www.google.com/search?q=Boulangerie+Moderne+Paris" rel="noopener" target="_blank">BOULANGERIE MODERNE</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Boulangerie%20Moderne%2C%2016%20Rue%20des%20Foss%C3%A9s%20Saint-Jacques%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge" style="background:#ede9fe;border-color:#c4b5fd">Emily in Paris</span><span class="badge" style="background:#ede9fe;border-color:#c4b5fd;font-weight:700">🎬 EMILY IN PARIS</span></div></div></div><div class="item" style="background:#ede9fe;border-radius:16px;margin:6px 0;padding:12px 10pxbackground:#ecfdf5;border:1px solid #86efac;border-radius:12px;"><input data-id="terra-nera" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge" style="background:#fff;color:#111827;border-style:dashed">🎬</span><a class="place-link" href="https://www.google.com/search?q=Terra+Nera+Paris" rel="noopener" target="_blank">TERRA NERA</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Terra%20Nera%2C%2018%20Rue%20des%20Foss%C3%A9s%20Saint-Jacques%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge" style="background:#ede9fe;border-color:#c4b5fd">Emily in Paris</span><span class="badge" style="background:#ede9fe;border-color:#c4b5fd;font-weight:700">🎬 EMILY IN PARIS</span></div></div></div><div class="item" style="background:#dbeafe;border-radius:16px;margin:6px 0;padding:12px 10pxbackground:#ecfdf5;border:1px solid #86efac;border-radius:12px;"><input data-id="pharmacie-monge" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge" style="background:#fff;color:#111827;border-style:dashed">🧴</span><a class="place-link" href="https://www.google.com/search?q=Pharmacie+Monge+Paris" rel="noopener" target="_blank">MONGE</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Pharmacie%20Monge%2C%2074%20Rue%20Monge%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge" style="background:#dbeafe;border-color:#93c5fd">farmakozmetik mağazası</span></div></div></div><div class="item"><input data-id="pantheon" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge">31</span><a class="place-link" href="https://tr.wikipedia.org/wiki/Panth%C3%A9on_(Paris)" rel="noopener" target="_blank">Panthéon</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Panth%C3%A9on%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge">anıt / yapı</span><span class="badge pmp">🏛️ PMP</span></div></div></div><div class="item"><input data-id="lux" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge">32</span><a class="place-link" href="https://tr.wikipedia.org/wiki/L%C3%BCksemburg_Bah%C3%A7esi" rel="noopener" target="_blank">Lüksemburg Bahçesi</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=L%C3%BCksemburg%20Bah%C3%A7esi%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge">bahçe</span></div></div></div><div class="item"><input data-id="medici" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge">33</span><a class="place-link" href="https://en.wikipedia.org/wiki/Medici_Fountain" rel="noopener" target="_blank">Medici Fountain</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Medici%20Fountain%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge">çeşme</span><span class="badge">bahçe içi</span></div></div></div><div class="item cafe"><input data-id="cafe-de-flore" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge" style="background:#fff;color:#111827;border-style:dashed">☕</span><a class="place-link" href="https://en.wikipedia.org/wiki/Caf%C3%A9_de_Flore" rel="noopener" target="_blank">CAFE DE FLORE</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Caf%C3%A9%20de%20Flore%2C%20172%20Boulevard%20Saint-Germain%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge cafe">kafe</span></div></div></div><div class="item" style="background:#dbeafe;border-radius:16px;margin:6px 0;padding:12px 10pxbackground:#ecfdf5;border:1px solid #86efac;border-radius:12px;"><input data-id="citypharma" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge" style="background:#fff;color:#111827;border-style:dashed">🧴</span><a class="place-link" href="https://www.google.com/search?q=Citypharma+Paris" rel="noopener" target="_blank">CITYPHARMA</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Citypharma%2C%2026%20Rue%20du%20Four%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge" style="background:#dbeafe;border-color:#93c5fd">farmakozmetik mağazası</span></div></div></div></div><div class="item"><input data-id="bourdelle" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge">34</span><a class="place-link" href="https://tr.wikipedia.org/wiki/Mus%C3%A9e_Bourdelle" rel="noopener" target="_blank">Bourdelle Museum</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Bourdelle%20Museum%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge">müze</span><span class="badge free">🆓 ücretsiz</span></div></div></div><div class="item"><input data-id="liberation" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge">35</span><a class="place-link" href="https://en.wikipedia.org/wiki/Mus%C3%A9e_de_la_Lib%C3%A9ration_de_Paris" rel="noopener" target="_blank">The Liberation of Paris Museum - General Leclerc Museum - Jean Moulin Museum</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=The%20Liberation%20of%20Paris%20Museum%20-%20General%20Leclerc%20Museum%20-%20Jean%20Moulin%20Museum%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge">müze</span><span class="badge">II. Dünya Savaşı</span></div></div></div><div class="item"><input data-id="orsay" type="checkbox"/><div class="item"><input data-id="eiffel" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge">39</span><a class="place-link" href="https://tr.wikipedia.org/wiki/Eyfel_Kulesi" rel="noopener" target="_blank">Eyfel Kulesi</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Eyfel%20Kulesi%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge">anıtsal yapı</span><span class="badge">seyir</span></div><div class="content"><div class="place-row"><span class="num-badge">36</span><a class="place-link" href="https://tr.wikipedia.org/wiki/Mus%C3%A9e_d%27Orsay" rel="noopener" target="_blank">Orsay Müzesi</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Orsay%20M%C3%BCzesi%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge">müze</span><span class="badge pmp">🏛️ PMP</span></div></div></div><div class="item"><input data-id="invalides" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge">37</span><a class="place-link" href="https://tr.wikipedia.org/wiki/Les_Invalides" rel="noopener" target="_blank">Les Invalides</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Les%20Invalides%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge">kompleks</span><span class="badge pmp">🏛️ PMP</span></div></div></div></div><div class="item"><input data-id="architecture" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge">38</span><a class="place-link" href="https://en.wikipedia.org/wiki/Cit%C3%A9_de_l%27architecture_et_du_patrimoine" rel="noopener" target="_blank">City of Architecture &amp; Heritage</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=City%20of%20Architecture%20%26%20Heritage%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge">müze</span><span class="badge pmp">🏛️ PMP</span></div></div></div><div class="item cafe"><input data-id="carette-trocadero" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge" style="background:#fff;color:#111827;border-style:dashed">☕</span><a class="place-link" href="https://www.google.com/search?q=Carette+Paris" rel="noopener" target="_blank">CARETTE</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Carette%2C%204%20Place%20du%20Trocad%C3%A9ro%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge cafe">kafe</span></div></div></div></div><div class="item"><input data-id="liberty" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge">40</span><a class="place-link" href="https://en.wikipedia.org/wiki/Liberty_Enlightening_the_World_(Paris)" rel="noopener" target="_blank">Statue of Liberty</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Statue%20of%20Liberty%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge">heykel</span><span class="badge">nehir adası</span></div></div></div><div class="item"><input data-id="art-gallery" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge">41</span><a class="place-link" href="https://en.wikipedia.org/wiki/Art_gallery" rel="noopener" target="_blank">Art gallery</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Art%20gallery%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge">galeri</span></div></div>
+<div class="item" style="background:#fef3c7;border-radius:16px;margin:6px 0;padding:12px 10pxbackground:#ecfdf5;border:1px solid #86efac;border-radius:12px;">
+<input data-id="dinner3" type="checkbox"/>
+<div class="content">
+<div class="place-row">
+<span class="num-badge" style="background:#fff;color:#111827;border-style:dashed">🍽️</span>
+<a class="place-link" href="https://www.google.com/search?q=LE+PROCOPE" target="_blank">LE PROCOPE</a>
+<a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Le%20Procope%20Paris" target="_blank">📍 Harita</a>
+</div>
+<div class="badges"><span class="badge" style="background:#fef3c7;border-color:#fde68a">akşam yemeği</span></div>
+</div></div>
+</div></details><details class="day"><summary><div class="day-title"><strong>28 Mart Cumartesi — Versailles + Marais ve doğu Paris</strong><span>Sabah Versailles, dönüşte Le Marais ve kanal çevresi</span></div><div class="count">10 durak</div></summary><div class="items"><div class="item"><input data-id="versailles" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge">42</span><a class="place-link" href="https://tr.wikipedia.org/wiki/Versay_Saray%C4%B1" rel="noopener" target="_blank">Versay Sarayı</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Versay%20Saray%C4%B1%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge">saray</span><span class="badge pmp">🏛️ PMP</span></div></div><div class="item" style="background:#dcfce7;border-radius:16px;margin:6px 0;padding:12px 10pxbackground:#ecfdf5;border:1px solid #86efac;border-radius:12px;"><input data-id="galleries-one-nation" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge" style="background:#fff;color:#111827;border-style:dashed">🛍️</span><a class="place-link" href="https://www.google.com/search?q=Galeries+Lafayette+One+Nation+Paris" rel="noopener" target="_blank">GALERIES LAFAYETTE ONE NATION</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Galeries%20Lafayette%20Outlet%20One%20Nation%2C%20Les%20Clayes-sous-Bois" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge" style="background:#dcfce7;border-color:#86efac">alışveriş</span></div></div></div></div><div class="item"><input data-id="marais" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge">43</span><a class="place-link" href="https://tr.wikipedia.org/wiki/Le_Marais" rel="noopener" target="_blank">Le Marais</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Le%20Marais%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge">mahalle</span></div></div></div><div class="item"><input data-id="vosges" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge">44</span><a class="place-link" href="https://tr.wikipedia.org/wiki/Place_des_Vosges" rel="noopener" target="_blank">Place des Vosges</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Place%20des%20Vosges%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge">meydan</span></div></div></div><div class="item" style="background:#dcfce7;border-radius:16px;margin:6px 0;padding:12px 10pxbackground:#ecfdf5;border:1px solid #86efac;border-radius:12px;"><input data-id="bhv-marais" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge" style="background:#fff;color:#111827;border-style:dashed">🛍️</span><a class="place-link" href="https://en.wikipedia.org/wiki/BHV_Marais" rel="noopener" target="_blank">BHV MARAIS</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=BHV%20Marais%2C%2052%20Rue%20de%20Rivoli%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge" style="background:#dcfce7;border-color:#86efac">alışveriş</span></div></div></div><div class="item"><input data-id="carnavalet" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge">45</span><a class="place-link" href="https://tr.wikipedia.org/wiki/Carnavalet_M%C3%BCzesi" rel="noopener" target="_blank">Carnavalet Müzesi</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Carnavalet%20M%C3%BCzesi%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge">müze</span><span class="badge free">🆓 ücretsiz</span></div></div></div><div class="item"><input data-id="cognacq" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge">46</span><a class="place-link" href="https://en.wikipedia.org/wiki/Mus%C3%A9e_Cognacq-Jay" rel="noopener" target="_blank">Musée Cognacq-Jay</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Mus%C3%A9e%20Cognacq-Jay%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge">müze</span></div></div></div><div class="item"><input data-id="archives" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge">47</span><a class="place-link" href="https://en.wikipedia.org/wiki/H%C3%B4tel_de_Soubise" rel="noopener" target="_blank">Musée des Archives Nationales - Hôtel de Soubise</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Mus%C3%A9e%20des%20Archives%20Nationales%20-%20H%C3%B4tel%20de%20Soubise%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge">müze</span><span class="badge">arşiv</span></div></div></div><div class="item"><input data-id="st-paul" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge">48</span><a class="place-link" href="https://en.wikipedia.org/wiki/Saint-Paul-Saint-Louis" rel="noopener" target="_blank">Paroisse Saint-Paul Saint-Louis</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Paroisse%20Saint-Paul%20Saint-Louis%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge">kilise</span></div></div></div><div class="item"><input data-id="cremieux" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge">49</span><a class="place-link" href="https://en.wikipedia.org/wiki/Rue_Cr%C3%A9mieux" rel="noopener" target="_blank">Rue Crémieux</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Rue%20Cr%C3%A9mieux%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge">sokak</span><span class="badge">fotoğraf noktası</span></div></div></div><div class="item"><input data-id="canal-stmartin" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge">50</span><a class="place-link" href="https://tr.wikipedia.org/wiki/Saint-Martin_Kanal%C4%B1" rel="noopener" target="_blank">Saint-Martin Kanalı</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Saint-Martin%20Kanal%C4%B1%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge">kanal</span><span class="badge">yürüyüş</span></div></div></div><div class="item" style="background:#dcfce7;border-radius:16px;margin:6px 0;padding:12px 10pxbackground:#ecfdf5;border:1px solid #86efac;border-radius:12px;"><input data-id="great-grocery-store-paris" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge" style="background:#fff;color:#111827;border-style:dashed">🛍️</span><a class="place-link" href="https://www.google.com/search?q=La+Grande+Epicerie+de+Paris" rel="noopener" target="_blank">THE GREAT GROCERY STORE OF PARIS</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=La%20Grande%20%C3%89picerie%20de%20Paris%2C%2038%20Rue%20de%20S%C3%A8vres%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge" style="background:#dcfce7;border-color:#86efac">alışveriş</span></div></div><div class="item"><input data-id="samaritaine" type="checkbox"/><div class="content"><div class="place-row"><span class="num-badge">51</span><a class="place-link" href="https://en.wikipedia.org/wiki/La_Samaritaine" rel="noopener" target="_blank">The Samaritaine</a><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=The%20Samaritaine%2C%20Paris" rel="noopener" target="_blank">📍 Harita</a></div><div class="badges"><span class="badge">alışveriş</span><span class="badge">art nouveau</span></div></div>
+<div class="item" style="background:#fef3c7;border-radius:16px;margin:6px 0;padding:12px 10pxbackground:#ecfdf5;border:1px solid #86efac;border-radius:12px;">
+<input data-id="dinner4" type="checkbox"/>
+<div class="content">
+<div class="place-row">
+<span class="num-badge" style="background:#fff;color:#111827;border-style:dashed">🍽️</span>
+<a class="place-link" href="https://www.google.com/search?q=BOUILLON+CHARTIER+MONTPARNASSE" target="_blank">BOUILLON CHARTIER MONTPARNASSE</a>
+<a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Bouillon%20Chartier%20Montparnasse" target="_blank">📍 Harita</a>
+</div>
+<div class="badges"><span class="badge" style="background:#fef3c7;border-color:#fde68a">akşam yemeği</span></div>
+</div></div>
+</div></details><div class="footer">Bu sürümde her durağın yanında ayrı Google Maps bağlantısı vardır.</div>
+</div>
+
+<script>
+(function(){
+  const PAGE_KEY = 'paris-plan:' + location.pathname;
+  const boxes = [...document.querySelectorAll('input[type="checkbox"][data-id]')];
+
+  function mark(){
+    boxes.forEach(b => {
+      const item = b.closest('.item');
+      if(item) item.classList.toggle('checked', !!b.checked);
+    });
+  }
+
+  function readState(){
+    let state = {};
+    try {
+      state = JSON.parse(localStorage.getItem(PAGE_KEY) || '{}') || {};
+    } catch(e) {}
+    try {
+      const packed = new URLSearchParams(location.hash.slice(1)).get('checks');
+      if (packed) packed.split(',').filter(Boolean).forEach(id => state[id] = true);
+    } catch(e) {}
+    return state;
+  }
+
+  function writeState(){
+    const state = {};
+    boxes.forEach(b => { state[b.dataset.id] = !!b.checked; });
+    try { localStorage.setItem(PAGE_KEY, JSON.stringify(state)); } catch(e) {}
+    mark();
+  }
+
+  function loadState(){
+    const state = readState();
+    boxes.forEach(b => { b.checked = !!state[b.dataset.id]; });
+    mark();
+  }
+
+  boxes.forEach(b => {
+    b.addEventListener('change', writeState, {passive:true});
+    b.addEventListener('input', writeState, {passive:true});
+  });
+
+  window.addEventListener('pagehide', writeState);
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') writeState();
+  });
+
+  const resetBtn = document.getElementById('resetBtn');
+  if (resetBtn) {
+    resetBtn.addEventListener('click', () => {
+      boxes.forEach(b => b.checked = false);
+      writeState();
+      location.hash = '';
+    });
+  }
+
+  const saveLinkBtn = document.getElementById('saveLinkBtn');
+  if (saveLinkBtn) {
+    saveLinkBtn.addEventListener('click', async () => {
+      const checked = boxes.filter(b => b.checked).map(b => b.dataset.id).join(',');
+      const url = location.href.split('#')[0] + (checked ? '#checks=' + checked : '');
+      try {
+        await navigator.clipboard.writeText(url);
+        alert('İlerleme linke işlendi ve link panoya kopyalandı.');
+      } catch(e) {
+        location.hash = checked ? 'checks=' + checked : '';
+        alert('İlerleme linke işlendi.');
+      }
+    });
+  }
+
+  loadState();
+})();
+</script>
+
+
+<details class="day">
+<summary><strong>EKSTRA</strong></summary>
+<div class="items"><div class="extra-groups"><section class="extra-group"><div class="extra-group-title">🟡 MONTMARTRE</div>
+<div class="item minor-extra">
+  <input data-id="extra-maison-rose" type="checkbox"/>
+  <div class="content">
+    <div class="place-row">
+      <span class="num-badge" style="background:#fff;color:#111827;border-style:dashed">+</span>
+      <a class="place-link" href="https://www.google.com/search?q=La+Maison+Rose+Paris" rel="noopener" target="_blank">La Maison Rose</a>
+      <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=La%20Maison%20Rose%20Paris" rel="noopener" target="_blank">📍 Harita</a>
+    </div>
+    <div class="badges"><span class="badge">restoran</span></div>
+  </div>
+</div>
+
+<div class="item minor-extra">
+  <input data-id="extra-lacouvee" type="checkbox"/>
+  <div class="content">
+    <div class="place-row">
+      <span class="num-badge" style="background:#fff;color:#111827;border-style:dashed">+</span>
+      <a class="place-link" href="https://www.google.com/search?q=La+Couv%C3%A9e+Montmartre" rel="noopener" target="_blank">La Couvée Montmartre</a>
+      <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=La%20Couv%C3%A9e%20Montmartre%20Paris" rel="noopener" target="_blank">📍 Harita</a>
+    </div>
+    <div class="badges"><span class="badge">kafe</span></div>
+  </div>
+</div>
+
+<div class="item minor-extra">
+  <input data-id="extra-bouillon-pigalle" type="checkbox"/>
+  <div class="content">
+    <div class="place-row">
+      <span class="num-badge" style="background:#fff;color:#111827;border-style:dashed">+</span>
+      <a class="place-link" href="https://www.google.com/search?q=Bouillon+Pigalle+Paris" rel="noopener" target="_blank">Bouillon Pigalle</a>
+      <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Bouillon%20Pigalle%20Paris" rel="noopener" target="_blank">📍 Harita</a>
+    </div>
+    <div class="badges"><span class="badge">restoran</span></div>
+  </div>
+</div>
+
+<div class="item minor-extra">
+  <input data-id="extra-aux-merveilleux" type="checkbox"/>
+  <div class="content">
+    <div class="place-row">
+      <span class="num-badge" style="background:#fff;color:#111827;border-style:dashed">+</span>
+      <a class="place-link" href="https://www.google.com/search?q=Aux+Merveilleux+de+Fred+Paris" rel="noopener" target="_blank">Aux Merveilleux de Fred</a>
+      <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Aux%20Merveilleux%20de%20Fred%20Paris" rel="noopener" target="_blank">📍 Harita</a>
+    </div>
+    <div class="badges"><span class="badge">patisserie</span></div>
+  </div>
+</div>
+
+<div class="item minor-extra">
+  <input data-id="extra-black-cat" type="checkbox"/>
+  <div class="content">
+    <div class="place-row">
+      <span class="num-badge" style="background:#fff;color:#111827;border-style:dashed">+</span>
+      <a class="place-link" href="https://www.google.com/search?q=Au+Chat+Noir+Paris" rel="noopener" target="_blank">At the Black Cat</a>
+      <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=At%20the%20Black%20Cat%20Paris" rel="noopener" target="_blank">📍 Harita</a>
+    </div>
+    <div class="badges"><span class="badge">bar</span></div>
+  </div>
+</div>
+</section><section class="extra-group"><div class="extra-group-title">🔵 OPERA / LOUVRE / MERKEZ</div>
+<div class="item minor-extra">
+  <input data-id="extra-cedric" type="checkbox"/>
+  <div class="content">
+    <div class="place-row">
+      <span class="num-badge" style="background:#fff;color:#111827;border-style:dashed">+</span>
+      <a class="place-link" href="https://www.google.com/search?q=Cedric+Grolet+Opera+Paris" rel="noopener" target="_blank">Cedric Grolet Opéra</a>
+      <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Cedric%20Grolet%20Op%C3%A9ra%20Paris" rel="noopener" target="_blank">📍 Harita</a>
+    </div>
+    <div class="badges"><span class="badge">patisserie</span></div>
+  </div>
+</div>
+
+<div class="item minor-extra">
+  <input data-id="extra-paix" type="checkbox"/>
+  <div class="content">
+    <div class="place-row">
+      <span class="num-badge" style="background:#fff;color:#111827;border-style:dashed">+</span>
+      <a class="place-link" href="https://en.wikipedia.org/wiki/Caf%C3%A9_de_la_Paix" rel="noopener" target="_blank">Café de la Paix</a>
+      <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Caf%C3%A9%20de%20la%20Paix%20Paris" rel="noopener" target="_blank">📍 Harita</a>
+    </div>
+    <div class="badges"><span class="badge">kafe</span></div>
+  </div>
+</div>
+
+<div class="item minor-extra">
+  <input data-id="extra-capucines" type="checkbox"/>
+  <div class="content">
+    <div class="place-row">
+      <span class="num-badge" style="background:#fff;color:#111827;border-style:dashed">+</span>
+      <a class="place-link" href="https://www.google.com/search?q=3+Boulevard+des+Capucines+Paris" rel="noopener" target="_blank">3 Boulevard des Capucines</a>
+      <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=3%20Boulevard%20des%20Capucines%20Paris" rel="noopener" target="_blank">📍 Harita</a>
+    </div>
+    <div class="badges"><span class="badge">alışveriş</span></div>
+  </div>
+</div>
+
+<div class="item minor-extra">
+  <input data-id="extra-bomie" type="checkbox"/>
+  <div class="content">
+    <div class="place-row">
+      <span class="num-badge" style="background:#fff;color:#111827;border-style:dashed">+</span>
+      <a class="place-link" href="https://www.google.com/search?q=BO%26MIE+Louvre+Rivoli+Paris" rel="noopener" target="_blank">BO&amp;MIE Louvre-Rivoli</a>
+      <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=BO%26MIE%20Louvre-Rivoli%20Paris" rel="noopener" target="_blank">📍 Harita</a>
+    </div>
+    <div class="badges"><span class="badge">Louvre</span><span class="badge">ekstra</span></div>
+  </div>
+</div>
+
+<div class="item minor-extra">
+  <input data-id="extra-landmonkeys" type="checkbox"/>
+  <div class="content">
+    <div class="place-row">
+      <span class="num-badge" style="background:#fff;color:#111827;border-style:dashed">+</span>
+      <a class="place-link" href="https://www.google.com/search?q=Land%26Monkeys+Les+Halles+Paris" rel="noopener" target="_blank">Land&amp;Monkeys Les Halles</a>
+      <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Land%26Monkeys%20Les%20Halles%20Paris" rel="noopener" target="_blank">📍 Harita</a>
+    </div>
+    <div class="badges"><span class="badge">Les Halles</span><span class="badge">ekstra</span></div>
+  </div>
+</div>
+
+<div class="item minor-extra">
+  <input data-id="extra-fleuret" type="checkbox"/>
+  <div class="content">
+    <div class="place-row">
+      <span class="num-badge" style="background:#fff;color:#111827;border-style:dashed">+</span>
+      <a class="place-link" href="https://www.google.com/search?q=Maison+Fleuret+Paris" rel="noopener" target="_blank">Maison Fleuret Paris</a>
+      <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Maison%20Fleuret%20Paris" rel="noopener" target="_blank">📍 Harita</a>
+    </div>
+    <div class="badges"><span class="badge">kafe</span></div>
+  </div>
+</div>
+</section><section class="extra-group"><div class="extra-group-title">🟢 LE MARAIS / TEMPLE / HALLES</div>
+<div class="item minor-extra">
+  <input data-id="extra-pi-temple" type="checkbox"/>
+  <div class="content">
+    <div class="place-row">
+      <span class="num-badge" style="background:#fff;color:#111827;border-style:dashed">+</span>
+      <a class="place-link" href="https://www.google.com/search?q=Caf%C3%A9+PI+Temple+Paris" rel="noopener" target="_blank">Café PI - Temple</a>
+      <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Caf%C3%A9%20PI%20Temple%20Paris" rel="noopener" target="_blank">📍 Harita</a>
+    </div>
+    <div class="badges"><span class="badge">kafe</span></div>
+  </div>
+</div>
+
+<div class="item minor-extra">
+  <input data-id="extra-mademoiselle" type="checkbox"/>
+  <div class="content">
+    <div class="place-row">
+      <span class="num-badge" style="background:#fff;color:#111827;border-style:dashed">+</span>
+      <a class="place-link" href="https://www.google.com/search?q=Chez+Mademoiselle+Paris" rel="noopener" target="_blank">Chez Mademoiselle</a>
+      <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Chez%20Mademoiselle%20Paris" rel="noopener" target="_blank">📍 Harita</a>
+    </div>
+    <div class="badges"><span class="badge">restoran</span></div>
+  </div>
+</div>
+
+<div class="item minor-extra">
+  <input data-id="extra-dubillot" type="checkbox"/>
+  <div class="content">
+    <div class="place-row">
+      <span class="num-badge" style="background:#fff;color:#111827;border-style:dashed">+</span>
+      <a class="place-link" href="https://www.google.com/search?q=Brasserie+Dubillot+Paris" rel="noopener" target="_blank">Brasserie Dubillot</a>
+      <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Brasserie%20Dubillot%20Paris" rel="noopener" target="_blank">📍 Harita</a>
+    </div>
+    <div class="badges"><span class="badge">restoran</span></div>
+  </div>
+</div>
+
+<div class="item minor-extra">
+  <input data-id="extra-holybelly" type="checkbox"/>
+  <div class="content">
+    <div class="place-row">
+      <span class="num-badge" style="background:#fff;color:#111827;border-style:dashed">+</span>
+      <a class="place-link" href="https://www.google.com/search?q=Holybelly+Paris" rel="noopener" target="_blank">HolyBelly</a>
+      <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Holybelly%20Paris" rel="noopener" target="_blank">📍 Harita</a>
+    </div>
+    <div class="badges"><span class="badge">kafe</span></div>
+  </div>
+</div>
+
+<div class="item minor-extra">
+  <input data-id="extra-noir" type="checkbox"/>
+  <div class="content">
+    <div class="place-row">
+      <span class="num-badge" style="background:#fff;color:#111827;border-style:dashed">+</span>
+      <a class="place-link" href="https://www.google.com/search?q=Noir+Coffee+Shop+Paris" rel="noopener" target="_blank">Noir - Coffee Shop &amp; Torréfacteur</a>
+      <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Noir%20Coffee%20Shop%20Paris" rel="noopener" target="_blank">📍 Harita</a>
+    </div>
+    <div class="badges"><span class="badge">Marais</span><span class="badge">ekstra</span></div>
+  </div>
+</div>
+
+<div class="item minor-extra">
+  <input data-id="extra-petite-bleue" type="checkbox"/>
+  <div class="content">
+    <div class="place-row">
+      <span class="num-badge" style="background:#fff;color:#111827;border-style:dashed">+</span>
+      <a class="place-link" href="https://www.google.com/search?q=La+Petite+Bleue+Paris" rel="noopener" target="_blank">La Petite Bleue</a>
+      <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=La%20Petite%20Bleue%20Paris" rel="noopener" target="_blank">📍 Harita</a>
+    </div>
+    <div class="badges"><span class="badge">restoran</span></div>
+  </div>
+</div>
+</section><section class="extra-group"><div class="extra-group-title">🟣 LATIN QUARTER / SOL YAKA</div>
+<div class="item minor-extra">
+  <input data-id="extra-ptit-grec" type="checkbox"/>
+  <div class="content">
+    <div class="place-row">
+      <span class="num-badge" style="background:#fff;color:#111827;border-style:dashed">+</span>
+      <a class="place-link" href="https://www.google.com/search?q=Au+P%27tit+Grec+Paris" rel="noopener" target="_blank">Au P&#x27;tit Grec</a>
+      <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Au%20P%27tit%20Grec%20Paris" rel="noopener" target="_blank">📍 Harita</a>
+    </div>
+    <div class="badges"><span class="badge">Latin Quarter</span><span class="badge">ekstra</span></div>
+  </div>
+</div>
+
+<div class="item minor-extra">
+  <input data-id="extra-deux-magots" type="checkbox"/>
+  <div class="content">
+    <div class="place-row">
+      <span class="num-badge" style="background:#fff;color:#111827;border-style:dashed">+</span>
+      <a class="place-link" href="https://en.wikipedia.org/wiki/Les_Deux_Magots" rel="noopener" target="_blank">Les Deux Magots</a>
+      <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Les%20Deux%20Magots%20Paris" rel="noopener" target="_blank">📍 Harita</a>
+    </div>
+    <div class="badges"><span class="badge">kafe</span></div>
+  </div>
+</div>
+
+<div class="item minor-extra">
+  <input data-id="extra-antiquaires" type="checkbox"/>
+  <div class="content">
+    <div class="place-row">
+      <span class="num-badge" style="background:#fff;color:#111827;border-style:dashed">+</span>
+      <a class="place-link" href="https://www.google.com/search?q=Les+Antiquaires+Paris" rel="noopener" target="_blank">Les Antiquaires</a>
+      <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Les%20Antiquaires%20Paris" rel="noopener" target="_blank">📍 Harita</a>
+    </div>
+    <div class="badges"><span class="badge">kafe</span></div>
+  </div>
+</div>
+
+<div class="item minor-extra">
+  <input data-id="extra-bergeron" type="checkbox"/>
+  <div class="content">
+    <div class="place-row">
+      <span class="num-badge" style="background:#fff;color:#111827;border-style:dashed">+</span>
+      <a class="place-link" href="https://www.google.com/search?q=Le+caf%C3%A9+by+Maison+Bergeron+Paris" rel="noopener" target="_blank">Le café by Maison Bergeron</a>
+      <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Le%20caf%C3%A9%20by%20Maison%20Bergeron%20Paris" rel="noopener" target="_blank">📍 Harita</a>
+    </div>
+    <div class="badges"><span class="badge">kafe</span></div>
+  </div>
+</div>
+</section><section class="extra-group"><div class="extra-group-title">🔴 EIFFEL / INVALIDES / BATI</div>
+<div class="item minor-extra">
+  <input data-id="extra-les-ombres" type="checkbox"/>
+  <div class="content">
+    <div class="place-row">
+      <span class="num-badge" style="background:#fff;color:#111827;border-style:dashed">+</span>
+      <a class="place-link" href="https://www.google.com/search?q=Les+Ombres+Paris" rel="noopener" target="_blank">Les Ombres</a>
+      <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Les%20Ombres%20Paris" rel="noopener" target="_blank">📍 Harita</a>
+    </div>
+    <div class="badges"><span class="badge">rooftop</span></div>
+  </div>
+</div>
+
+<div class="item minor-extra">
+  <input data-id="extra-cristal" type="checkbox"/>
+  <div class="content">
+    <div class="place-row">
+      <span class="num-badge" style="background:#fff;color:#111827;border-style:dashed">+</span>
+      <a class="place-link" href="https://www.google.com/search?q=Le+Cristal+Bar+Paris" rel="noopener" target="_blank">Le Cristal-Bar</a>
+      <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Le%20Cristal-Bar%20Paris" rel="noopener" target="_blank">📍 Harita</a>
+    </div>
+    <div class="badges"><span class="badge">bar</span></div>
+  </div>
+</div>
+
+<div class="item minor-extra">
+  <input data-id="extra-10e-ciel" type="checkbox"/>
+  <div class="content">
+    <div class="place-row">
+      <span class="num-badge" style="background:#fff;color:#111827;border-style:dashed">+</span>
+      <a class="place-link" href="https://www.google.com/search?q=10%C3%A8me+Ciel+Paris" rel="noopener" target="_blank">10ème Ciel - Rooftop Bar Paris</a>
+      <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=10%C3%A8me%20Ciel%20Paris" rel="noopener" target="_blank">📍 Harita</a>
+    </div>
+    <div class="badges"><span class="badge">rooftop</span></div>
+  </div>
+</div>
+
+<div class="item minor-extra">
+  <input data-id="extra-lourmel" type="checkbox"/>
+  <div class="content">
+    <div class="place-row">
+      <span class="num-badge" style="background:#fff;color:#111827;border-style:dashed">+</span>
+      <a class="place-link" href="https://www.google.com/search?q=La+Cantine+Lourmel+Paris" rel="noopener" target="_blank">La Cantine Lourmel</a>
+      <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=La%20Cantine%20Lourmel%20Paris" rel="noopener" target="_blank">📍 Harita</a>
+    </div>
+    <div class="badges"><span class="badge">restoran</span></div>
+  </div>
+</div>
+
+<div class="item minor-extra">
+  <input data-id="extra-enza" type="checkbox"/>
+  <div class="content">
+    <div class="place-row">
+      <span class="num-badge" style="background:#fff;color:#111827;border-style:dashed">+</span>
+      <a class="place-link" href="https://www.google.com/search?q=Enza+Famiglia+Paris" rel="noopener" target="_blank">Enza Famiglia</a>
+      <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Enza%20Famiglia%20Paris" rel="noopener" target="_blank">📍 Harita</a>
+    </div>
+    <div class="badges"><span class="badge">restoran</span></div>
+  </div>
+</div>
+</section><section class="extra-group"><div class="extra-group-title">🟤 DİĞER / DAĞINIK</div>
+<div class="item minor-extra">
+  <input data-id="extra-train-bleu" type="checkbox"/>
+  <div class="content">
+    <div class="place-row">
+      <span class="num-badge" style="background:#fff;color:#111827;border-style:dashed">+</span>
+      <a class="place-link" href="https://en.wikipedia.org/wiki/Le_Train_Bleu_(restaurant)" rel="noopener" target="_blank">Le Train Bleu</a>
+      <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Le%20Train%20Bleu%20Paris" rel="noopener" target="_blank">📍 Harita</a>
+    </div>
+    <div class="badges"><span class="badge">restoran</span></div>
+  </div>
+</div>
+
+<div class="item minor-extra">
+  <input data-id="extra-ober-mamma" type="checkbox"/>
+  <div class="content">
+    <div class="place-row">
+      <span class="num-badge" style="background:#fff;color:#111827;border-style:dashed">+</span>
+      <a class="place-link" href="https://www.google.com/search?q=Ober+Mamma+Paris" rel="noopener" target="_blank">Ober Mamma</a>
+      <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Ober%20Mamma%20Paris" rel="noopener" target="_blank">📍 Harita</a>
+    </div>
+    <div class="badges"><span class="badge">restoran</span></div>
+  </div>
+</div>
+</section></div></div>
+</details>
+
+</body></html>
